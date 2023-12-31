@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "58a0c91f-3f8a-49b0-8e6d-c8a3e90a811e",
+		"name": "Booking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31311653"
+	},
+	"item": [
+		{
+			"name": "GetBooking",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/booking/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"booking",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBookingID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/booking/{{myID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"booking",
+						"{{myID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateBookingPro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json()\r",
+							"pm.environment.set(\"myID\",jsonData.bookingid)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Parker\",\r\n    \"totalprice\": 111,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2018-01-01\",\r\n        \"checkout\": \"2019-01-01\"\r\n    },\r\n    \"additionalneeds\": \"Breakfast\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/booking/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"booking",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateBookingPro",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{AccessData}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"Fariha\",\r\n    \"lastname\": \"Tasnim\",\r\n    \"totalprice\": 130,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2022-01-01\",\r\n        \"checkout\": \"2023-01-01\"\r\n    },\r\n    \"additionalneeds\": \"Dessert\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/booking/{{myID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"booking",
+						"{{myID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData=pm.response.json()\r",
+							"pm.environment.set(\"AccessData\",jsonData.token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{AccessData}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"username\" : \"admin\",\r\n  \"password\" : \"password123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PartialUpdatePro",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{AccessData}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"Asmaul\",\r\n    \"lastname\": \"Hosna\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/booking/{{myID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"booking",
+						"{{myID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HealthCheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/ping",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteBookingPro",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{AccessData}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/booking/8",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"booking",
+						"8"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
